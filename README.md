@@ -64,6 +64,63 @@
         }
     }
 
+**Type converter bullshit:**
+
+        using System;
+        using System.Collections.Generic;
+        using System.ComponentModel;
+        using System.Globalization;
+        using System.Linq;
+        using System.Text;
+        using System.Threading.Tasks;
+        
+        namespace ConsoleApp1.models
+        {
+        
+            public class SafeInt32Converter : Int32Converter
+            {
+                public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+                {
+                    if (value is string s)
+                    {
+                        if (int.TryParse(s, NumberStyles.Integer, culture ?? CultureInfo.InvariantCulture, out int result))
+                            return result;
+                        return 0;
+                    }
+        
+                    return base.ConvertFrom(context, culture, value);
+                }
+        
+                public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+                {
+                    if (destinationType == typeof(string) && value is int i)
+                        return i.ToString(culture ?? CultureInfo.InvariantCulture);
+        
+                    return base.ConvertTo(context, culture, value, destinationType);
+                }
+            }
+        
+        
+            internal class Athlete
+            {
+                //ID,Name,Sex,Age,Height,Weight,Team,NOC
+        
+                public int ID { get; set; }
+                public  string? Name { get; set; }
+                public string? Sex { get; set; }
+                public int? Age { get; set; }
+        
+                [TypeConverter(typeof(SafeInt32Converter))]
+                public int? Height { get; set; }
+                public int? Weight { get; set; }
+                public string? Team { get; set; }
+                public string? NOC { get; set; }
+        
+        
+            }
+        }
+
+
 **Full code:**
 
     using System.Xml.Linq;
