@@ -1,3 +1,68 @@
+**Write css**
+
+        using System;
+        using System.IO;
+        using System.Text;
+        using System.Windows.Forms;
+        
+        public partial class MainForm : Form
+        {
+            public MainForm()
+            {
+                InitializeComponent();
+            }
+        
+            private void btnExport_Click(object sender, EventArgs e)
+            {
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                saveDialog.Filter = "Text file (*.txt)|*.txt";
+                saveDialog.Title = "Mentés másként...";
+                saveDialog.FileName = "kisallatok_mentes.txt";
+        
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        var animals = getAllAnimals(); // lekérdezés az adatbázisból
+                        StringBuilder sb = new StringBuilder();
+        
+                        foreach (var a in animals)
+                        {
+                            // Feltételezve, hogy van pl. Name, Type, Age property
+                            sb.AppendLine($"{a.Id};{a.Name};{a.Type};{a.Age}");
+                        }
+        
+                        File.WriteAllText(saveDialog.FileName, sb.ToString(), Encoding.UTF8);
+                        MessageBox.Show("Sikeres mentés.", "Exportálás", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Hiba történt: " + ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        
+            private List<Animal> getAllAnimals()
+            {
+                // Ez a te adatbázislekérdezésed helye
+                // Példa dummy lista:
+                return new List<Animal>
+                {
+                    new Animal { Id = 1, Name = "Cirmi", Type = "Macska", Age = 3 },
+                    new Animal { Id = 2, Name = "Bodri", Type = "Kutya", Age = 5 }
+                };
+            }
+        }
+        
+        public class Animal
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Type { get; set; }
+            public int Age { get; set; }
+        }
+
+
 **Read in css:**
     
     Console.WriteLine(args[0]);
