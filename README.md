@@ -145,5 +145,8 @@ https://www.youtube.com/watch?v=AXnpVYU54FE
         }
 
 
+**Migration**
 
+        Add-Migration FirstMig
+        update-database
     
