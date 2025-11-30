@@ -48,3 +48,23 @@ https://www.youtube.com/watch?v=AXnpVYU54FE
             public virtual Category? Category { get; set; }
         }
     }
+
+
+        using System.ComponentModel.DataAnnotations;
+        
+        namespace WebApplication3.Models
+        {
+            public class Category
+            {
+        
+                public int Id { get; set; }
+        
+                [Required]
+                [Display(Name = "Kategória neve")]
+                public string Name { get; set; }
+        
+                [Required]
+                [Display(Name = "Rövid leírás")]
+                public string Description { get; set; }
+            }
+        }
