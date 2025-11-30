@@ -157,4 +157,35 @@ select tag
 
         aps-items="Html.GeEnumSelectList<Position>()"
 
+**Filter**
+
+        <div>
+            <form asp-action="Index" method="get">
+                <div class="d-flex gap-3 align-items-center">
+                    <span>
+                        <label>@Html.DisplayNameFor(model => model.Position)</label>
+                        <select name="positionFilter" class="form-control"
+                                asp-items="Html.GetEnumSelectList<Position>()">
+                            <option value=""></option>
+                        </select>
+                    </span>
+                    <span>
+                        <label>@Html.DisplayNameFor(model => model.Name)</label>
+                        <input name="nameFilter" class="form-control" />
+                    </span>
+                    <span>
+                        <label>@Html.DisplayNameFor(model => model.Retired)</label>
+                        <select name="retiredFilter" class="form-control">
+                            <option value=""></option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </span>
+                    <span>
+                        <input type="submit" value="Filter" class="btn btn-primary" />
+                    </span>
+                </div>
+            </form>
+        </div>
+
         
