@@ -149,4 +149,12 @@ https://www.youtube.com/watch?v=AXnpVYU54FE
 
         Add-Migration FirstMig
         update-database
-    
+
+
+**Enums:**</br>
+33:41</br>
+<select tag>
+
+        aps-items="Html.GeEnumSelectList<Position>()"
+
+        
