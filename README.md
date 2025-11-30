@@ -188,4 +188,11 @@ select tag
             </form>
         </div>
 
+------
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+            <a asp-controller="Players" asp-action="Index" asp-route-sorting="up">&#x25B2;</a>
+            <a asp-action="Index" asp-route-sorting="down">&#x25BC;</a>
+        </th>
         
