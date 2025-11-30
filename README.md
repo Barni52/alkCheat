@@ -195,4 +195,40 @@ select tag
             <a asp-controller="Players" asp-action="Index" asp-route-sorting="up">&#x25B2;</a>
             <a asp-action="Index" asp-route-sorting="down">&#x25BC;</a>
         </th>
+
+-------------------
         
+        // GET: Players
+        public async Task<IActionResult> Index(string? sorting, 
+                                                Position? positionFilter,
+                                                string? nameFilter,
+                                                bool? retiredFilter)
+        {
+            // Ne maradjon benne a kódba!
+            //Console.WriteLine(sorting + " " + nameFilter 
+            //    + " " + retiredFilter + " " + positionFilter);
+            var efContext = _context.Players.Include(p => p.ReferencedTeam);
+        
+            var query = efContext.AsQueryable();
+        
+            if (sorting != null)
+            {
+                query = sorting.Equals("up") 
+                    ? query.OrderBy(e => e.Name.ToLower())
+                    : query.OrderByDescending(e => e.Name.ToLower());
+            }
+            if (positionFilter != null)
+            {
+                query = query.Where(e => e.Position == positionFilter);
+            }
+            if (nameFilter != null)
+            {
+                query = query.Where(e => e.Name.ToLower().Contains(nameFilter.ToLower()));
+            }
+            if (retiredFilter != null)
+            {
+                query = query.Where(e => e.Retired == retiredFilter);
+            }
+        
+            return View(await query.ToListAsync());
+        }
