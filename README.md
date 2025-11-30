@@ -153,7 +153,7 @@ https://www.youtube.com/watch?v=AXnpVYU54FE
 
 **Enums:**</br>
 33:41</br>
-<select tag>
+select tag
 
         aps-items="Html.GeEnumSelectList<Position>()"
 
